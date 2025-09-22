@@ -1,40 +1,53 @@
 import kareltherobot.*;
 import java.awt.Color;
-
 class Racer extends Robot implements Runnable {
+    private int beepers;
+    private Color color;
+    // Constructor
     public Racer(int street, int avenue, Direction direction, int beeps) {
         super(street, avenue, direction, beeps);
+        beepers = beeps;
         World.setupThread(this);  // configura este robot para correr en un hilo
     }
 
     public Racer(int street, int avenue, Direction direction, int beeps, Color color) {
         super(street, avenue, direction, beeps, color);
+        beepers = beeps;
+        this.color = color;
         World.setupThread(this);
     }
 
     // Lógica del recorrido
-    public void race() {
-        // Avanza 4 pasos hasta los beepers
-        for (int i = 0; i < 4; i++) move();
+    public void recorridoAzul() {
+        if (frontIsClear()){
+            move();
 
-        // Recoge 5 beepers
-        for (int i = 0; i < 5; i++) pickBeeper();
+        } else{
+            turnLeft();
+        }
+        if(nextToABeeper() &&  beepers< 4) {
+            pickBeeper();
+        }
+    }
+    public void recorridoVerde() {
+        if (frontIsClear()){
+            move();
 
-        // Gira a la izquierda y sale de los muros
-        turnLeft();
-        move();
-        move();
-
-        // Deja los 5 beepers
-        for (int i = 0; i < 5; i++) putBeeper();
-
-        // Se mueve y apaga
-        move();
-        turnOff();
+        } else{
+            turnLeft();
+        }
+         if(nextToABeeper() && beepers < 4) {
+            pickBeeper();
+        }
     }
 
     // Método que arranca el hilo
-    public void run() {
-        race();
+    public void run()
+    {
+        if (color == Color.blue) {
+            recorridoAzul();
+        }else{
+            recorridoVerde();
+        }
     }
 }
