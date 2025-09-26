@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="c24437c6-87a4-421b-a03d-bd13fe88b134" name="Changes" comment="Refactor MiPrimerRobot and Racer classes to improve robot management and movement logic">
+      <change beforePath="$PROJECT_DIR$/Trabajos/MiPrimerRobot.class" beforeDir="false" afterPath="$PROJECT_DIR$/Trabajos/MiPrimerRobot.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Trabajos/PruebaSemaforosContinuo.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Trabajos/Racer.class" beforeDir="false" afterPath="$PROJECT_DIR$/Trabajos/Racer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Trabajos/Racer.java" beforeDir="false" afterPath="$PROJECT_DIR$/Trabajos/Racer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Trabajos/RacerMejorado.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Trabajos/TestSemaforos.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Trabajos/TrafficController.class" beforeDir="false" afterPath="$PROJECT_DIR$/Trabajos/TrafficController.class" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;Magdc&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/Magdc/Proyecto-Karel.git&quot;,
+    &quot;accountId&quot;: &quot;295f1aca-1726-494d-b41e-4a4a948a399c&quot;
+  }
+}</component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 8
+}</component>
+  <component name="ProjectId" id="332f7Lfn8yDRgYr8ScfOWXsEKih" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.MiPrimerRobot.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Pruebas.executor&quot;: &quot;Run&quot;,
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;Z:/Proyectos/Proyectos-java/Proyecto-Karel&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;org.jetbrains.plugins.github.ui.GithubSettingsConfigurable&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="RunManager" selected="Application.MiPrimerRobot">
+    <configuration name="MiPrimerRobot" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Trabajos.MiPrimerRobot" />
+      <module name="Proyecto-Karel" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="Trabajos.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Pruebas" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Trabajos.Pruebas" />
+      <module name="Proyecto-Karel" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="Trabajos.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.MiPrimerRobot" />
+        <item itemvalue="Application.Pruebas" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-bf35d07a577b-intellij.indexing.shared.core-IU-252.23892.409" />
+        <option value="bundled-js-predefined-d6986cc7102b-e03c56caf84a-JavaScript-IU-252.23892.409" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="c24437c6-87a4-421b-a03d-bd13fe88b134" name="Changes" comment="" />
+      <created>1758519921572</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1758519921572</updated>
+      <workItem from="1758519924706" duration="6872000" />
+      <workItem from="1758554102906" duration="4290000" />
+      <workItem from="1758648788090" duration="14533000" />
+      <workItem from="1758758058130" duration="308000" />
+      <workItem from="1758758526333" duration="5133000" />
+      <workItem from="1758777911271" duration="1525000" />
+      <workItem from="1758816034705" duration="6681000" />
+      <workItem from="1758824108899" duration="4792000" />
+      <workItem from="1758837916297" duration="2791000" />
+      <workItem from="1758865495314" duration="7541000" />
+      <workItem from="1758896629123" duration="1617000" />
+      <workItem from="1758901088291" duration="3966000" />
+      <workItem from="1758906717181" duration="17210000" />
+      <workItem from="1758926167922" duration="593000" />
+      <workItem from="1758926788492" duration="992000" />
+      <workItem from="1758928377447" duration="1125000" />
+    </task>
+    <task id="LOCAL-00001" summary="Creacion de robots por zonas, cambios en la clase Racer para manejar los beepers y empezar los movimientos">
+      <option name="closed" value="true" />
+      <created>1758527131996</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1758527131996</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Refactor MiPrimerRobot and Racer classes to improve robot management and movement logic">
+      <option name="closed" value="true" />
+      <created>1758899948575</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1758899948575</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Refactor MiPrimerRobot and Racer classes to improve robot management and movement logic">
+      <option name="closed" value="true" />
+      <created>1758918484912</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1758918484912</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Creacion de robots por zonas, cambios en la clase Racer para manejar los beepers y empezar los movimientos" />
+    <MESSAGE value="Refactor MiPrimerRobot and Racer classes to improve robot management and movement logic" />
+    <option name="LAST_COMMIT_MESSAGE" value="Refactor MiPrimerRobot and Racer classes to improve robot management and movement logic" />
+  </component>
+</project>

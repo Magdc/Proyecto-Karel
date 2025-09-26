@@ -124,28 +124,40 @@ class Racer extends Robot implements Runnable {
         for (int i = 0; i < ruta.length-1; i++) {
            // System.out.println("Llegue hasta aqui, voy a evaluar si "+ruta[i][0] + " == "+ avenue +" y "+ ruta[i][1]+ " == "+ street);
             if ( avenue == ruta[i][0] && street == ruta[i][1]) {
+
                 // System.out.println("Estoy en la posicion correcta: " + avenue + ", " + street);
                 //System.out.println(nextAvenue());
                 //System.out.println(nextStreet());
                 if(frontIsClear() && MiPrimerRobot.controller.estaOcupada(nextStreet(),nextAvenue())){
-                    turnLeft();
-                    giro();
-                    if((avenue == 11 && street == 1)){
 
+                    if((avenue == 11 && street == 1)){
+                        turnLeft();
+                        giro();
                         switchRouteAzul();
                         break;
                     }
                     else if ((avenue ==23 && street ==11)){
+                        turnLeft();
+                        giro();
                         switchRouteVerde();
                         break;
                     }
                     
                 }
                 else if (frontIsClear() && (avenue == 10 && street ==2) && (ruta == TrafficController.rutaRapidaVerde || ruta == TrafficController.rutaLentaVerde)){
+                    while(beepers>0){
+                        putBeeper();
+                        this.beepers = beepers - 1;
+                    }
                     switchColoraAzul();
                     break;
                 }
                 else if (frontIsClear() && (avenue == 30 && street ==11) && (ruta == TrafficController.rutaRapidaAzul || ruta == TrafficController.rutaLentaAzul)){
+                    while(beepers>0){
+                        System.out.println("IMPRIMIENDO BEEPERSSSS");
+                        putBeeper();
+                        this.beepers = beepers - 1;
+                    };
                     switchColoraVerde();
                     break;
                 }
