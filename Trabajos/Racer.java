@@ -16,7 +16,11 @@ class Racer extends Robot implements Runnable {
         this.dir= direction;
         this.street = street;
         this.avenue = avenue;
-        this.ruta = TrafficController.rutaRapidaAzul;
+        if (color == Color.blue)
+            this.ruta = TrafficController.rutaRapidaAzul;
+        else{
+            this.ruta = TrafficController.rutaRapidaVerde;
+        }
         World.setupThread(this);  // configura este robot para correr en un hilo
     }
 
@@ -75,34 +79,54 @@ class Racer extends Robot implements Runnable {
         }
     }
 
-    // Lógica del recorrido
-    public void recorridoAzul() {
-
-        System.out.println("Recorrido azul tratando de seguir aca");
-        seguirRuta(ruta);
-    }
     public void safeMove() {
         MiPrimerRobot.controller.requestAndCommitMove(street, avenue, nextStreet(), nextAvenue(), this::move);
     }
+
+    private void switchRouteAzul() {
+            ruta =  (this.ruta == TrafficController.rutaRapidaAzul) ? TrafficController.rutaLentaAzul
+                    : TrafficController.rutaRapidaAzul;
+        seguirRuta(ruta);
+    }
+    private void switchRouteVerde() {
+        ruta = (this.ruta == TrafficController.rutaRapidaVerde) ? TrafficController.rutaLentaVerde
+                : TrafficController.rutaRapidaVerde;
+        seguirRuta(ruta);
+    }
+
     public void seguirRuta(int [][] ruta) {
         for (int i = 0; i < ruta.length-1; i++) {
-            System.out.println("Llegue hasta aqui, voy a evaluar si "+
-                    ruta[i][0] + " == "+ avenue +" y "+ ruta[i][1]+ " == "+ street);
+           // System.out.println("Llegue hasta aqui, voy a evaluar si "+ruta[i][0] + " == "+ avenue +" y "+ ruta[i][1]+ " == "+ street);
             if ( avenue == ruta[i][0] && street == ruta[i][1]) {
-                System.out.println("entre");
-                System.out.println("Esta el frente sin nadie? " + frontIsClear() + " Proxima avenida: "
-                        + nextAvenue() + " == " + ruta[i + 1][0] + " y Proxima calle: " + nextStreet() + " == " + ruta[i + 1][1]);
+                // System.out.println("Estoy en la posicion correcta: " + avenue + ", " + street);
+                //System.out.println(nextAvenue());
+                //System.out.println(nextStreet());
+                if(frontIsClear() && MiPrimerRobot.controller.estaOcupada(nextStreet(),nextAvenue())){
+                    turnLeft();
+                    giro();
+                    if((avenue == 11 && street == 1)){
+
+                        switchRouteAzul();
+                        break;
+                    }
+                    else if ((avenue ==23 && street ==11)){
+                        switchRouteVerde();
+                        break;
+                    }
+
+                }
+
+                //System.out.println("entre");
+                //System.out.println("Esta el frente sin nadie? " + frontIsClear() + " Proxima avenida: "
+                       // + nextAvenue() + " == " + ruta[i + 1][0] + " y Proxima calle: " + nextStreet() + " == " + ruta[i + 1][1]);
                 if(nextToABeeper() &&  beepers< 4) {
-                    System.out.println("me enloqueci con los beepers");
                     this.beepers = beepers + 1;
                     pickBeeper();
                     i = i-1;
-                    System.out.println("Tengo beepers: " + beepers);
                 }
                 else if (frontIsClear() && nextAvenue() == ruta[i + 1][0] && nextStreet() == ruta[i + 1][1]) {
-                    System.out.println("Me puedo mover");
                     safeMove();
-                    System.out.println("Lo logre señor");
+                    MiPrimerRobot.controller.imprimirMapa();
                     cambiarValorAvenue();
                     cambiarValoreStreet();
                 } else {
@@ -118,10 +142,6 @@ class Racer extends Robot implements Runnable {
     // Método que arranca el hilo
     public void run()
     {
-        if (color == Color.blue) {
-            recorridoAzul();
-        }else{
-            //recorridoVerde();
-        }
+        seguirRuta(ruta);
     }
 }

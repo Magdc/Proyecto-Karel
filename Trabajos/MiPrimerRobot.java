@@ -24,12 +24,11 @@ public class MiPrimerRobot implements Directions{
     private static void crearZonaVerde() {
         for (int i = 12; i < 17 ; i++) {
             for (int j = 30; j > 22; j--) {
-
                 switch (i) {
-                    case 12:if (j == 28 || j == 29 )racers.add(new Racer(i, j, West, 0, Color.green));controller.ocuparPosicion(i,j); break;
-                    case 13, 15: racers.add(new Racer(i, j, West, 0, Color.green));controller.ocuparPosicion(i,j); break;
-                    case 14: racers.add(new Racer(i, j, East, 0, Color.green));controller.ocuparPosicion(i,j); break;
-                    case 16: if(j==30 || j == 29) racers.add(new Racer(i, j,West, 0, Color.green));controller.ocuparPosicion(i,j);
+                    case 12:if (j == 28 || j == 29 ){racers.add(new Racer(i, j, West, 0, Color.green));controller.ocuparPosicion(i,j);} break;
+                    case 13, 15:{ racers.add(new Racer(i, j, West, 0, Color.green));controller.ocuparPosicion(i,j);} break;
+                    case 14: {racers.add(new Racer(i, j, East, 0, Color.green));controller.ocuparPosicion(i,j);} break;
+                    case 16: if(j==30 || j == 29) {racers.add(new Racer(i, j,West, 0, Color.green));controller.ocuparPosicion(i,j);}
                 }
             }
         }
@@ -37,44 +36,28 @@ public class MiPrimerRobot implements Directions{
     public static void main(String[] args) {
         World.readWorld("Mundo.kwld");
         World.setVisible(true);
-        World.setDelay(3); // opcional para ver la animación más clara
-        crearZonaAzul();
-        System.out.println(" //// PRIMERA VERSION DEL MAPA //// ");
-        controller.imprimirMapa();
-        // Iniciar todos los robots
-        for (Racer racer : racers) {
-            new Thread(racer).start();
-        }
+        World.setDelay(6); // opcional para ver la animación más clara
+        //crearZonaAzul();
         //crearZonaVerde();
-        /*
 
-        Racer racer1 = new Racer(1,7,East,0,Color.blue);
-        Racer racer2 = new Racer(1,6,East,0,Color.blue);
-        Racer racer3 = new Racer(1,5,East,0,Color.blue);
-        //Racer racer2 = new Racer(7,2,East,Color.BLUE);
-        //Racer racer3 = new Racer(7,3,East,Color.YELLOW);
+        System.out.println(" //// PRIMERA VERSION DEL MAPA //// ");
 
-        new Thread(racer1).start();
-        new Thread(racer2).start();
-        new Thread(racer3).start();
-        //new Thread(racer2).start();
-        //new Thread(racer3).start();
-        // Dos robots en la misma posición y orientación
-        //Robot first  = new Robot(1, 1, East, 0);               // rojo por defecto
-        //Robot second = new Robot(1, 1, East, 0, Color.blue);   // azul
-
-        // Crea los hilos/----
-        //Thread t1 = new Thread(new RacerTask(first),  "Racer-1");
-        //Thread t2 = new Thread(new RacerTask(second), "Racer-2");
-
-
-        // (Opcional) esperar a que terminen
-       /* try {
-            t1.join();
-            t2.join();
-        } catch (InterruptedException ie) {
-            Thread.currentThread().interrupt();
+        // Iniciar todos los robots
+        /*for (Racer racer : racers) {
+            new Thread(racer).start();
         }*/
+        //crearZonaVerde();
+        ;
+        //NOTA TODO LOS METODOS DE ES TRAFFIC CONTROLLER ESTAN AL REVES CUANDO SE USEN SUS FUNCIONES TENER EN CUENTA
+        Racer racer1 = new Racer(11,30,East,0,Color.green);
+        Racer racer5 = new Racer(1,10,East,0,Color.blue);
+        controller.ocuparPosicion(1,12);
+        controller.ocuparPosicion(10,23);
+        controller.imprimirMapa();
+        new Thread(racer1).start();
+        new Thread(racer5).start();
+
+
     }
 }
 
