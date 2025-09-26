@@ -82,6 +82,23 @@ class Racer extends Robot implements Runnable {
     public void safeMove() {
         MiPrimerRobot.controller.requestAndCommitMove(street, avenue, nextStreet(), nextAvenue(), this::move);
     }
+    
+    public boolean safeMoveConSemaforo() {
+        // Verificar si necesita adquirir un semáforo antes de moverse
+        if (!MiPrimerRobot.controller.intentarAdquirirSemaforo(street, avenue)) {
+            // No pudo adquirir el semáforo, debe esperar
+            return false;
+        }
+        
+        // Realizar el movimiento normal
+        safeMove();
+        cambiarValorAvenue();
+        cambiarValoreStreet();
+        
+        // Liberar el semáforo si llegó a una posición de liberación
+        MiPrimerRobot.controller.liberarSemaforo(street, avenue);
+        return true;
+    }
 
     private void switchRouteAzul() {
             ruta =  (this.ruta == TrafficController.rutaRapidaAzul) ? TrafficController.rutaLentaAzul
@@ -91,6 +108,15 @@ class Racer extends Robot implements Runnable {
     private void switchRouteVerde() {
         ruta = (this.ruta == TrafficController.rutaRapidaVerde) ? TrafficController.rutaLentaVerde
                 : TrafficController.rutaRapidaVerde;
+        seguirRuta(ruta);
+    }
+
+    private void switchColoraVerde() {
+            ruta =  TrafficController.rutaRapidaVerde;
+        seguirRuta(ruta);
+    }
+    private void switchColoraAzul() {
+            ruta = TrafficController.rutaRapidaAzul;
         seguirRuta(ruta);
     }
 
@@ -113,9 +139,16 @@ class Racer extends Robot implements Runnable {
                         switchRouteVerde();
                         break;
                     }
-
+                    
                 }
-
+                else if (frontIsClear() && (avenue == 10 && street ==2) && (ruta == TrafficController.rutaRapidaVerde || ruta == TrafficController.rutaLentaVerde)){
+                    switchColoraAzul();
+                    break;
+                }
+                else if (frontIsClear() && (avenue == 30 && street ==11) && (ruta == TrafficController.rutaRapidaAzul || ruta == TrafficController.rutaLentaAzul)){
+                    switchColoraVerde();
+                    break;
+                }
                 //System.out.println("entre");
                 //System.out.println("Esta el frente sin nadie? " + frontIsClear() + " Proxima avenida: "
                        // + nextAvenue() + " == " + ruta[i + 1][0] + " y Proxima calle: " + nextStreet() + " == " + ruta[i + 1][1]);
@@ -125,10 +158,40 @@ class Racer extends Robot implements Runnable {
                     i = i-1;
                 }
                 else if (frontIsClear() && nextAvenue() == ruta[i + 1][0] && nextStreet() == ruta[i + 1][1]) {
-                    safeMove();
-                    MiPrimerRobot.controller.imprimirMapa();
-                    cambiarValorAvenue();
-                    cambiarValoreStreet();
+                    // Verificar si está en una posición que requiere semáforo
+                    boolean esPosicionSemaforo = 
+                        (street == 1 && avenue == 15) ||  // Semáforo sección 1 entrada
+                        (street == 2 && avenue == 21) ||  // Semáforo sección 1 entrada alternativa
+                        (street == 1 && avenue == 25) ||  // Semáforo sección 2 entrada
+                        (street == 2 && avenue == 29) ||  // Semáforo sección 2 entrada alternativa
+                        (street == 4 && avenue == 30) ||  // Semáforo sección 3 entrada
+                        (street == 10 && avenue == 29);   // Semáforo sección 3 entrada alternativa
+                    
+                    if (esPosicionSemaforo) {
+                        // Intentar continuamente adquirir el semáforo
+                        boolean pudoMoverse = safeMoveConSemaforo();
+                        if (!pudoMoverse) {
+                            // No pudo adquirir el semáforo, retroceder en el índice para reintentar
+                            i = i - 1;
+                            // Pequeña pausa para no saturar el procesador
+                            try {
+                                Thread.sleep(50);
+                            } catch (InterruptedException e) {
+                                Thread.currentThread().interrupt();
+                            }
+                            continue; // Volver a intentar
+                        }
+                        MiPrimerRobot.controller.imprimirMapa();
+                    } else {
+                        // Movimiento normal sin semáforo
+                        safeMove();
+                        cambiarValorAvenue();
+                        cambiarValoreStreet();
+                        
+                        // Liberar semáforo si llegó a una posición de liberación
+                        MiPrimerRobot.controller.liberarSemaforo(street, avenue);
+                        MiPrimerRobot.controller.imprimirMapa();
+                    }
                 } else {
                     i = i - 1;
                     turnLeft();

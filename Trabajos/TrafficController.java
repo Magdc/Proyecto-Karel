@@ -2,11 +2,21 @@
 class TrafficController{
     private final int[][] mapa;// Matriz para representar el mapa de tráfico
     private final Object lock = new Object();
+    
+    // Semáforos para controlar las secciones críticas
+    private final Object semaforo1 = new Object(); // Para sección (16,1) a (21,1)
+    private final Object semaforo2 = new Object(); // Para sección (26,1) a (29,1)
+    private final Object semaforo3 = new Object(); // Para sección (30,5) a (30,10)
+    
+    // Estado de los semáforos
+    private boolean semaforoOcupado1 = false;
+    private boolean semaforoOcupado2 = false;
+    private boolean semaforoOcupado3 = false;
 
     // Los semaforos estan en la posicion (15,1), (25,1) y (30,9)
     // Posiciones de decision  11,1 23,11
     public static final int[][] rutaRapidaAzul = {
-            {7,4},{6,4},{5,4},{4,4},{3,4},{2,4},{1,4},{1,3},{2,3},{3,3}
+            {10,2},{9,2},{8,2},{8,3},{8,4},{7,4},{6,4},{5,4},{4,4},{3,4},{2,4},{1,4},{1,3},{2,3},{3,3}
             ,{4,3},{5,3},{6,3},{7,3},{7,2},{6,2},{5,2},{4,2},{3,2},{2,2}, {1,2},
             {1,1},{2,1},{3,1},{4,1},{5,1},{6,1},{7,1}, {8,1}, {9,1}, {10,1}, {11,1}, {12,1}, {13,1},
             {14,1}, {15,1}, {16,1}, {17,1}, {18,1}, {19,1}, {20,1},
@@ -16,7 +26,7 @@ class TrafficController{
 
     // Los semaforos estan en la posicion (15,1), (25,1) y (30,9)
     public static final int[][] rutaLentaAzul = {
-            {7,4},{6,4},{5,4},{4,4},{3,4},{2,4},{1,4},{1,3},{2,3}
+            {10,2},{9,2},{8,2},{8,3},{8,4},{7,4},{6,4},{5,4},{4,4},{3,4},{2,4},{1,4},{1,3},{2,3}
             ,{3,3},{4,3},{5,3},{6,3},{7,3},{7,2},{6,2},{5,2},{4,2},
             {3,2},{2,2},{1,2},{1,1},{2,1},{3,1},{4,1},{5,1},{6,1},
             {7,1},{8,1}, {9,1}, {10,1}, {11,1}, {11,2}, {11,3},
@@ -135,4 +145,202 @@ class TrafficController{
         }
     }
     // necesito crear otra funcion que me ayude a definir que rutas se deben seguir y cuando deben parar y seguir
+    
+    // Métodos para manejo de semáforos
+    
+    /**
+     * Verifica si un semáforo está disponible sin intentar adquirirlo
+     * @param street posición street del robot
+     * @param avenue posición avenue del robot
+     * @return true si el semáforo está disponible, false si está ocupado
+     */
+    public boolean semaforoDisponible(int street, int avenue) {
+        // Sección 1: (16,1) hasta (21,1) - Semáforos en (15,1) y (21,2)
+        if ((street == 1 && avenue == 15) || (street == 2 && avenue == 21)) {
+            synchronized (semaforo1) {
+                return !semaforoOcupado1 && verificarDestinoLibre1(street, avenue);
+            }
+        }
+        // Sección 2: (26,1) hasta (29,1) - Semáforos en (25,1) y (29,2) 
+        else if ((street == 1 && avenue == 25) || (street == 2 && avenue == 29)) {
+            synchronized (semaforo2) {
+                return !semaforoOcupado2 && verificarDestinoLibre2(street, avenue);
+            }
+        }
+        // Sección 3: (30,5) hasta (30,10) - Semáforos en (30,4) y (29,10)
+        else if ((street == 4 && avenue == 30) || (street == 10 && avenue == 29)) {
+            synchronized (semaforo3) {
+                return !semaforoOcupado3 && verificarDestinoLibre3(street, avenue);
+            }
+        }
+        return true; // No necesita semáforo
+    }
+    
+    private boolean verificarDestinoLibre1(int street, int avenue) {
+        if (street == 1 && avenue == 15) {
+            return estaLibre(1, 22); // Verificar que (22,1) esté libre
+        } else if (street == 2 && avenue == 21) {
+            return estaLibre(2, 16); // Verificar que (16,2) esté libre
+        }
+        return true;
+    }
+    
+    private boolean verificarDestinoLibre2(int street, int avenue) {
+        if (street == 1 && avenue == 25) {
+            return estaLibre(1, 30); // Verificar que (30,1) esté libre
+        } else if (street == 2 && avenue == 29) {
+            return estaLibre(2, 26); // Verificar que (26,2) esté libre
+        }
+        return true;
+    }
+    
+    private boolean verificarDestinoLibre3(int street, int avenue) {
+        if (street == 4 && avenue == 30) {
+            return estaLibre(11, 30); // Verificar que (30,11) esté libre
+        } else if (street == 10 && avenue == 29) {
+            return estaLibre(5, 29); // Verificar que (29,5) esté libre
+        }
+        return true;
+    }
+    
+    /**
+     * Intenta adquirir el semáforo para una sección crítica
+     * @param street posición street del robot
+     * @param avenue posición avenue del robot
+     * @return true si puede adquirir el semáforo, false si no puede
+     */
+    public boolean intentarAdquirirSemaforo(int street, int avenue) {
+        // Sección 1: (16,1) hasta (21,1) - Semáforos en (15,1) y (21,2)
+        if ((street == 1 && avenue == 15) || (street == 2 && avenue == 21)) {
+            return intentarAdquirirSemaforo1(street, avenue);
+        }
+        // Sección 2: (26,1) hasta (29,1) - Semáforos en (25,1) y (29,2) 
+        else if ((street == 1 && avenue == 25) || (street == 2 && avenue == 29)) {
+            return intentarAdquirirSemaforo2(street, avenue);
+        }
+        // Sección 3: (30,5) hasta (30,10) - Semáforos en (30,4) y (29,10)
+        else if ((street == 4 && avenue == 30) || (street == 10 && avenue == 29)) {
+            return intentarAdquirirSemaforo3(street, avenue);
+        }
+        return true; // No necesita semáforo
+    }
+    
+    /**
+     * Libera el semáforo cuando el robot sale de la sección crítica
+     * @param street posición street del robot
+     * @param avenue posición avenue del robot
+     */
+    public void liberarSemaforo(int street, int avenue) {
+        // Sección 1: libera en (22,1) y (16,2)
+        if ((street == 1 && avenue == 22) || (street == 2 && avenue == 16)) {
+            liberarSemaforo1();
+        }
+        // Sección 2: libera en (30,1) y (26,2)
+        else if ((street == 1 && avenue == 30) || (street == 2 && avenue == 26)) {
+            liberarSemaforo2();
+        }
+        // Sección 3: libera en (30,11) y (29,5)
+        else if ((street == 11 && avenue == 30) || (street == 5 && avenue == 29)) {
+            liberarSemaforo3();
+        }
+    }
+    
+    private boolean intentarAdquirirSemaforo1(int street, int avenue) {
+        synchronized (semaforo1) {
+            // Verificar que el semáforo no esté ocupado
+            if (semaforoOcupado1) {
+                return false;
+            }
+            
+            // Verificar que la posición de liberación esté libre antes de adquirir
+            if (street == 1 && avenue == 15) {
+                // Debe verificar que (22,1) esté libre
+                if (!estaLibre(1, 22)) {
+                    return false;
+                }
+            } else if (street == 2 && avenue == 21) {
+                // Debe verificar que (16,2) esté libre
+                if (!estaLibre(2, 16)) {
+                    return false;
+                }
+            }
+            
+            // Adquirir el semáforo
+            semaforoOcupado1 = true;
+            return true;
+        }
+    }
+    
+    private boolean intentarAdquirirSemaforo2(int street, int avenue) {
+        synchronized (semaforo2) {
+            // Verificar que el semáforo no esté ocupado
+            if (semaforoOcupado2) {
+                return false;
+            }
+            
+            // Verificar que la posición de liberación esté libre antes de adquirir
+            if (street == 1 && avenue == 25) {
+                // Debe verificar que (30,1) esté libre
+                if (!estaLibre(1, 30)) {
+                    return false;
+                }
+            } else if (street == 2 && avenue == 29) {
+                // Debe verificar que (26,2) esté libre
+                if (!estaLibre(2, 26)) {
+                    return false;
+                }
+            }
+            
+            // Adquirir el semáforo
+            semaforoOcupado2 = true;
+            return true;
+        }
+    }
+    
+    private boolean intentarAdquirirSemaforo3(int street, int avenue) {
+        synchronized (semaforo3) {
+            // Verificar que el semáforo no esté ocupado
+            if (semaforoOcupado3) {
+                return false;
+            }
+            
+            // Verificar que la posición de liberación esté libre antes de adquirir
+            if (street == 4 && avenue == 30) {
+                // Debe verificar que (30,11) esté libre
+                if (!estaLibre(11, 30)) {
+                    return false;
+                }
+            } else if (street == 10 && avenue == 29) {
+                // Debe verificar que (29,5) esté libre
+                if (!estaLibre(5, 29)) {
+                    return false;
+                }
+            }
+            
+            // Adquirir el semáforo
+            semaforoOcupado3 = true;
+            return true;
+        }
+    }
+    
+    private void liberarSemaforo1() {
+        synchronized (semaforo1) {
+            semaforoOcupado1 = false;
+            semaforo1.notifyAll();
+        }
+    }
+    
+    private void liberarSemaforo2() {
+        synchronized (semaforo2) {
+            semaforoOcupado2 = false;
+            semaforo2.notifyAll();
+        }
+    }
+    
+    private void liberarSemaforo3() {
+        synchronized (semaforo3) {
+            semaforoOcupado3 = false;
+            semaforo3.notifyAll();
+        }
+    }
 }

@@ -37,25 +37,25 @@ public class MiPrimerRobot implements Directions{
         World.readWorld("Mundo.kwld");
         World.setVisible(true);
         World.setDelay(6); // opcional para ver la animación más clara
-        //crearZonaAzul();
-        //crearZonaVerde();
+        crearZonaAzul();
+        crearZonaVerde();
 
         System.out.println(" //// PRIMERA VERSION DEL MAPA //// ");
 
         // Iniciar todos los robots
-        /*for (Racer racer : racers) {
+        for (Racer racer : racers) {
             new Thread(racer).start();
-        }*/
+        }
         //crearZonaVerde();
         ;
         //NOTA TODO LOS METODOS DE ES TRAFFIC CONTROLLER ESTAN AL REVES CUANDO SE USEN SUS FUNCIONES TENER EN CUENTA
-        Racer racer1 = new Racer(11,30,East,0,Color.green);
-        Racer racer5 = new Racer(1,10,East,0,Color.blue);
-        controller.ocuparPosicion(1,12);
-        controller.ocuparPosicion(10,23);
+        //Racer racer1 = new Racer(13,23,East,0,Color.green);
+        //Racer racer5 = new Racer(1,10,East,0,Color.blue);
+        //controller.ocuparPosicion(1,12);
+        //controller.ocuparPosicion(10,23);
         controller.imprimirMapa();
-        new Thread(racer1).start();
-        new Thread(racer5).start();
+        //new Thread(racer1).start();
+        //new Thread(racer5).start();
 
 
     }
