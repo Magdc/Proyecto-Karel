@@ -5,13 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c24437c6-87a4-421b-a03d-bd13fe88b134" name="Changes" comment="Refactor MiPrimerRobot and Racer classes to improve robot management and movement logic">
-      <change beforePath="$PROJECT_DIR$/Trabajos/MiPrimerRobot.class" beforeDir="false" afterPath="$PROJECT_DIR$/Trabajos/MiPrimerRobot.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Trabajos/PruebaSemaforosContinuo.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Trabajos/Racer.class" beforeDir="false" afterPath="$PROJECT_DIR$/Trabajos/Racer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Trabajos/MiPrimerRobot.java" beforeDir="false" afterPath="$PROJECT_DIR$/Trabajos/MiPrimerRobot.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Trabajos/Racer.java" beforeDir="false" afterPath="$PROJECT_DIR$/Trabajos/Racer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Trabajos/RacerMejorado.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Trabajos/TestSemaforos.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Trabajos/TrafficController.class" beforeDir="false" afterPath="$PROJECT_DIR$/Trabajos/TrafficController.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -135,7 +131,7 @@
       <workItem from="1758906717181" duration="17210000" />
       <workItem from="1758926167922" duration="593000" />
       <workItem from="1758926788492" duration="992000" />
-      <workItem from="1758928377447" duration="1125000" />
+      <workItem from="1758928377447" duration="4077000" />
     </task>
     <task id="LOCAL-00001" summary="Creacion de robots por zonas, cambios en la clase Racer para manejar los beepers y empezar los movimientos">
       <option name="closed" value="true" />

@@ -50,7 +50,7 @@ public class MiPrimerRobot implements Directions{
         ;
         //NOTA TODO LOS METODOS DE ES TRAFFIC CONTROLLER ESTAN AL REVES CUANDO SE USEN SUS FUNCIONES TENER EN CUENTA
         //Racer racer1 = new Racer(13,23,East,0,Color.green);
-        //Racer racer5 = new Racer(1,10,East,0,Color.blue);
+        //Racer racer5 = new Racer(1,7,East,0,Color.blue);
         //controller.ocuparPosicion(1,12);
         //controller.ocuparPosicion(10,23);
         controller.imprimirMapa();

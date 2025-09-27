@@ -129,7 +129,6 @@ class Racer extends Robot implements Runnable {
                 //System.out.println(nextAvenue());
                 //System.out.println(nextStreet());
                 if(frontIsClear() && MiPrimerRobot.controller.estaOcupada(nextStreet(),nextAvenue())){
-
                     if((avenue == 11 && street == 1)){
                         turnLeft();
                         giro();
@@ -145,29 +144,18 @@ class Racer extends Robot implements Runnable {
                     
                 }
                 else if (frontIsClear() && (avenue == 10 && street ==2) && (ruta == TrafficController.rutaRapidaVerde || ruta == TrafficController.rutaLentaVerde)){
-                    while(beepers>0){
-                        putBeeper();
-                        this.beepers = beepers - 1;
-                    }
                     switchColoraAzul();
                     break;
                 }
                 else if (frontIsClear() && (avenue == 30 && street ==11) && (ruta == TrafficController.rutaRapidaAzul || ruta == TrafficController.rutaLentaAzul)){
-                    while(beepers>0){
-                        System.out.println("IMPRIMIENDO BEEPERSSSS");
-                        putBeeper();
-                        this.beepers = beepers - 1;
-                    };
                     switchColoraVerde();
                     break;
                 }
-                //System.out.println("entre");
-                //System.out.println("Esta el frente sin nadie? " + frontIsClear() + " Proxima avenida: "
-                       // + nextAvenue() + " == " + ruta[i + 1][0] + " y Proxima calle: " + nextStreet() + " == " + ruta[i + 1][1]);
-                if(nextToABeeper() &&  beepers< 4) {
-                    this.beepers = beepers + 1;
-                    pickBeeper();
-                    i = i-1;
+                if( nextToABeeper() && this.beepers < 4 &&((avenue == 8  && street == 1) || (avenue == 23  && street == 12)) ) {
+                        pickBeeper();
+                        this.beepers = this.beepers + 1;
+                        i = i - 1;
+
                 }
                 else if (frontIsClear() && nextAvenue() == ruta[i + 1][0] && nextStreet() == ruta[i + 1][1]) {
                     // Verificar si está en una posición que requiere semáforo
@@ -199,15 +187,22 @@ class Racer extends Robot implements Runnable {
                         safeMove();
                         cambiarValorAvenue();
                         cambiarValoreStreet();
-                        
                         // Liberar semáforo si llegó a una posición de liberación
                         MiPrimerRobot.controller.liberarSemaforo(street, avenue);
-                        MiPrimerRobot.controller.imprimirMapa();
+                        //MiPrimerRobot.controller.imprimirMapa();
                     }
                 } else {
                     i = i - 1;
                     turnLeft();
                     giro();
+                }
+                if(this.beepers > 0 &&((avenue == 30  && street == 11) || (avenue == 9  && street == 2))){
+                        this.beepers = this.beepers - 4;
+                         putBeeper();
+                    putBeeper();
+                    putBeeper();
+                    putBeeper();
+                         i = i -1;
                 }
             }
         }
