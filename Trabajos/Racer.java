@@ -137,17 +137,19 @@ class Racer extends Robot implements Runnable {
                     }
                     else if ((avenue ==23 && street ==11)){
                         turnLeft();
+                        turnLeft();
+                        turnLeft();
                         giro();
-                        switchRouteVerde();
+                        switchRouteVerde(); 
                         break;
                     }
                     
                 }
-                else if (frontIsClear() && (avenue == 10 && street ==2) && (ruta == TrafficController.rutaRapidaVerde || ruta == TrafficController.rutaLentaVerde)){
+                if ((avenue == 10 && street ==2) && (ruta == TrafficController.rutaRapidaVerde || ruta == TrafficController.rutaLentaVerde)){
                     switchColoraAzul();
                     break;
                 }
-                else if (frontIsClear() && (avenue == 30 && street ==11) && (ruta == TrafficController.rutaRapidaAzul || ruta == TrafficController.rutaLentaAzul)){
+                if ((avenue == 30 && street ==11) && (ruta == TrafficController.rutaRapidaAzul || ruta == TrafficController.rutaLentaAzul)){
                     switchColoraVerde();
                     break;
                 }
@@ -155,7 +157,6 @@ class Racer extends Robot implements Runnable {
                         pickBeeper();
                         this.beepers = this.beepers + 1;
                         i = i - 1;
-
                 }
                 else if (frontIsClear() && nextAvenue() == ruta[i + 1][0] && nextStreet() == ruta[i + 1][1]) {
                     // Verificar si está en una posición que requiere semáforo
